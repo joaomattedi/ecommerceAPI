@@ -20,9 +20,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity createProduct(@RequestBody Product teste) {
-        System.out.println(teste.toString());
-        productRepository.save(teste);
+    public ResponseEntity createProduct(@RequestBody Product product) {
+        productRepository.save(product);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{codProduct}")
+    public ResponseEntity getSingleProduct(@PathVariable String codProduct) {
+        return ResponseEntity.ok().build();
     }
 }
