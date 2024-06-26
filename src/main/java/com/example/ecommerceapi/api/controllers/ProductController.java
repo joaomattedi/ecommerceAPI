@@ -27,6 +27,10 @@ public class ProductController {
 
     @GetMapping("/{codProduct}")
     public ResponseEntity getSingleProduct(@PathVariable String codProduct) {
-        return ResponseEntity.ok().build();
+        Product teste = productRepository.findProductByCodProduct(codProduct).stream().findFirst().orElse(null);
+        if (teste == null){
+            return ResponseEntity.ok("[]");
+        }
+        return ResponseEntity.ok(teste.toString());
     }
 }
