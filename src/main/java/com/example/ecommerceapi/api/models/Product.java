@@ -24,6 +24,10 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
+
     @Override
     public String toString() {
         return "Product: "+ this.name + " - " + this.description;
