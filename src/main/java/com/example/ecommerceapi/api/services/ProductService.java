@@ -22,4 +22,8 @@ public class ProductService {
         Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
         return _productRepository.findAll(pageable);
     }
+
+    public Product createProduct(Product product) {
+        return _productRepository.save(product);
+    }
 }

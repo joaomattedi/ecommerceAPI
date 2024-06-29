@@ -2,35 +2,39 @@ package com.example.ecommerceapi.api.controllers;
 
 import com.example.ecommerceapi.api.models.Product;
 import com.example.ecommerceapi.api.repository.ProductRepository;
+import com.example.ecommerceapi.api.services.ProductService;
+import com.example.ecommerceapi.utils.ProductUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-    private ProductRepository productRepository;
+    private ProductService _productService;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        _productService = productService;
     }
 
     @GetMapping
-    public ResponseEntity getAllProducts() {
-        return ResponseEntity.ok(this.productRepository.findAll());
+    public ResponseEntity getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        return ResponseEntity.ok(_productService.getAllProducts(page,size,sortBy));
     }
 
     @PostMapping
     public ResponseEntity createProduct(@RequestBody Product product) {
-        productRepository.save(product);
-        return ResponseEntity.noContent().build();
+        if (ProductUtils.validateCreateProduct(product)) {
+            return ResponseEntity.badRequest().body("Review the information from body request.");
+        }
+        Product newProduct = _productService.createProduct(product);
+        return ResponseEntity.ok(newProduct);
     }
 
-    @GetMapping("/{codProduct}")
-    public ResponseEntity getSingleProduct(@PathVariable String codProduct) {
-        Product teste = productRepository.findProductByCodProduct(codProduct).stream().findFirst().orElse(null);
-        if (teste == null){
-            return ResponseEntity.ok("[]");
-        }
-        return ResponseEntity.ok(teste.toString());
-    }
+//    @GetMapping("/{codProduct}")
+//    public ResponseEntity getSingleProduct(@PathVariable String codProduct) {
+//    }
 }
