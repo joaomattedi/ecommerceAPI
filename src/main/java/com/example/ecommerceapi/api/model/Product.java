@@ -1,4 +1,4 @@
-package com.example.ecommerceapi.api.models;
+package com.example.ecommerceapi.api.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 

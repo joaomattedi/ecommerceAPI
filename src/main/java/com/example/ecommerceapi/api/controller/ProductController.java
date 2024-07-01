@@ -1,8 +1,8 @@
-package com.example.ecommerceapi.api.controllers;
+package com.example.ecommerceapi.api.controller;
 
-import com.example.ecommerceapi.api.models.Product;
-import com.example.ecommerceapi.api.repository.ProductRepository;
-import com.example.ecommerceapi.api.services.ProductService;
+import com.example.ecommerceapi.api.dto.ProductDTO;
+import com.example.ecommerceapi.api.model.Product;
+import com.example.ecommerceapi.api.service.ProductService;
 import com.example.ecommerceapi.utils.ProductUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +26,11 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity createProduct(@RequestBody Product product) {
-        if (ProductUtils.validateCreateProduct(product)) {
+    public ResponseEntity createProduct(@RequestBody ProductDTO productDTO) {
+        if (!ProductUtils.validateCreateProduct(productDTO)) {
             return ResponseEntity.badRequest().body("Review the information from body request.");
         }
-        Product newProduct = _productService.createProduct(product);
+        Product newProduct = _productService.createProduct(productDTO);
         return ResponseEntity.ok(newProduct);
     }
 
