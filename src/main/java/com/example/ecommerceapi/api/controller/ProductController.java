@@ -38,4 +38,9 @@ public class ProductController {
     public ResponseEntity getProductByCodProduct(@PathVariable String codProduct) {
         return ResponseEntity.ok(_productService.getProductByCodProduct(codProduct));
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity updateProduct(@PathVariable Long id,@RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(_productService.updateProduct(id,productDTO));
+    }
 }

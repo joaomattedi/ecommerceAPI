@@ -5,6 +5,7 @@ import com.example.ecommerceapi.api.model.Product;
 import com.example.ecommerceapi.api.model.Seller;
 import com.example.ecommerceapi.api.repository.ProductRepository;
 import com.example.ecommerceapi.api.repository.SellerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +39,16 @@ public class ProductService {
 
         Seller seller = _sellerRepository.findById(productDto.getSellerId()).orElseThrow(() -> new IllegalArgumentException("Invalid seller ID"));
         product.setSeller(seller);
+
+        return _productRepository.save(product);
+    }
+
+    public Product updateProduct(Long id, ProductDTO productDTO) {
+        Product product = _productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        product.setCodProduct(productDTO.getCodProduct());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
 
         return _productRepository.save(product);
     }
