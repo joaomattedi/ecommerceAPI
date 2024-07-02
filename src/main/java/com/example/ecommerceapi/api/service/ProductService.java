@@ -25,6 +25,10 @@ public class ProductService {
         return _productRepository.findAll(pageable);
     }
 
+    public Product getProductByCodProduct(String codProduct) {
+        return _productRepository.findProductByCodProduct(codProduct).get(0);
+    }
+
     public Product createProduct(ProductDTO productDto) {
         Product product = new Product();
         product.setCodProduct(productDto.getCodProduct());

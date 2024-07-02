@@ -34,7 +34,8 @@ public class ProductController {
         return ResponseEntity.ok(newProduct);
     }
 
-//    @GetMapping("/{codProduct}")
-//    public ResponseEntity getSingleProduct(@PathVariable String codProduct) {
-//    }
+    @GetMapping("/{codProduct}")
+    public ResponseEntity getProductByCodProduct(@PathVariable String codProduct) {
+        return ResponseEntity.ok(_productService.getProductByCodProduct(codProduct));
+    }
 }
