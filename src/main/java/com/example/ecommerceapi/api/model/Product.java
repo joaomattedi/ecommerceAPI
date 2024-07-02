@@ -24,7 +24,7 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
