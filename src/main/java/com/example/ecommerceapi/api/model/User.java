@@ -1,5 +1,6 @@
 package com.example.ecommerceapi.api.model;
 
+import com.example.ecommerceapi.api.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,12 @@ public class User {
     private String phoneNumber;
 
     private String cellphoneNumber;
+
+    public void parse(UserDTO userDTO) {
+        this.name = userDTO.getName();
+        this.email = userDTO.getEmail();
+        this.password = userDTO.getPassword();
+        this.phoneNumber = userDTO.getPhoneNumber();
+        this.cellphoneNumber = userDTO.getCellphoneNumber();
+    }
 }
