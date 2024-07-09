@@ -27,4 +27,10 @@ public class UserService {
 
         _userRepository.save(user);
     }
+
+    public boolean authenticateUser(String email, String password){
+        User user = _userRepository.findByEmailAddress(email);
+
+        return user.getPassword().equals(password);
+    }
 }

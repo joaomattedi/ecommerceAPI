@@ -29,8 +29,14 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("/authenticate")
-//    public ResponseEntity authenticateUser(){
-//
-//    }
+    @PostMapping("/authenticate")
+    public ResponseEntity authenticateUser(@RequestBody UserDTO userDTO){
+        boolean valid = _userService.authenticateUser(userDTO.getEmail(),userDTO.getPassword());
+
+        if (!valid) {
+            return ResponseEntity.badRequest().body("Invalid credentials");
+        }
+
+        return ResponseEntity.ok().build();
+    }
 }
